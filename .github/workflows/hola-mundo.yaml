@@ -1,7 +1,7 @@
 name: hola-mundo #Nombre del workflow
 on: #Event through push
   push:
-    branches: ["main","master"]
+    branches: ["coursera-github-actions"]
 
 jobs:
   build:
