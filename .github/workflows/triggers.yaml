@@ -1,0 +1,48 @@
+name: Learning with Triggers
+run-name: Learning with Triggers
+on: 
+  # TRIGGER 1: Push filtrado
+  # Se activa solo si subes archivos .js a main o ramas de release
+  push:
+    branches:
+      - 'main'
+      - 'releases/**'
+    paths:
+      - '**.js'
+
+  # TRIGGER 2: Issues
+  # Se activa cuando alguien abre, edita o cierra un Issue en tu repo
+  issues:
+    types: [opened, edited,closed]
+
+  # TRIGGER 3: Workflow Dispatch (Manual)
+  # Esto creará un botón en GitHub con un formulario para rellenar
+  workflow_dispatch:
+    inputs:
+      alert:
+        description: 'alert level'
+        required: true
+        default: 'medium'
+        type: choice
+        options:
+          - low
+          - medium
+          - high
+      enviroment:
+        description: 'Entorno de destino (ej. Produccion'
+        required: true
+        type: string
+jobs:
+  explorando_triggers:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Active Trigger
+        run: |
+          echo "El evento que disparó este workflow fue: ${{ github.event_name }}"
+          echo "Acción realizada: ${{ github.event.action }}"
+  
+  
+      
